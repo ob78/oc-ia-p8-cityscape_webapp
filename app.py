@@ -1,7 +1,6 @@
 import numpy as np
 import os
 import json
-import cv2
 
 from flask import Flask
 from flask import render_template
@@ -206,9 +205,9 @@ def request(id_img):
 
     
     #7 - Superposition images + masques
-    added_image_mask_to_predict_array = cv2.addWeighted(img_to_array(image_to_predict), 0.5, np.squeeze(mask_to_predict_array_colors), 0.5, 0)
-    added_image_mask_predicted_array = cv2.addWeighted(img_to_array(image_to_predict), 0.5, mask_predicted_array_colors, 0.5, 0)
-    
+    added_image_mask_to_predict_array = 0.5 * img_to_array(image_to_predict) + 0.5 * np.squeeze(mask_to_predict_array_colors)
+    added_image_mask_predicted_array = 0.5 * img_to_array(image_to_predict) + 0.5 * mask_predicted_array_colors
+  
     
     #8 - Sérialisation
     image_mask_to_predict_name = 'image_mask_to_predict_'+id_img_to_predict+'.png'
